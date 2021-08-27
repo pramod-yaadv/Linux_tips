@@ -1,0 +1,12 @@
+1. For heavy I/O applications, a large amount of CPU capacity is consumed by the network I/O operations.
+2. Multi-Thread Model has three thread types, namely: Main thread, I/O thread & Worker thread. 
+Number of I/O threads should be increased to enable an independent I/O thread to read/write data in the connections, parse commands, and reply data packets, and still let a single thread process the commands and execute the timer events. In this way, the throughput of a single server can be increased.
+
+a. Main thread: Receives connections, creates clients, and forwards connections to the I/O thread.
+b. I/O thread: Processes the connection read/write events, parses commands, forwards the complete parsed commands to the worker thread for processing, sends the response packets, and deletes connections.
+
+c. Worker thread: Processes commands, generates the client response packets, and executes the timer events.
+  
+The main thread, I/O thread, and worker thread are driven by events separately.
+Threads exchange data through the lock-free queue and send notifications through tunnels.
+
