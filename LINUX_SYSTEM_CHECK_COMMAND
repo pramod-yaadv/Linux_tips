@@ -1,0 +1,47 @@
+
+#### top
+
+#### vmstat – Virtual Memory Statistics
+
+
+### Tcpdump – Network Packet Analyzer
+Tcpdump one of the most widely used command-line network packet analyzer or packets sniffer program that is used capture or filter TCP/IP packets that received or transferred on a specific interface over a network. It also provides a option to save captured packages in a file for later analysis. tcpdump is almost available in all major Linux distributions.
+# tcpdump -i eth0
+
+
+
+### Iotop – Monitor Linux Disk I/O
+
+Iotop is also much similar to top command and Htop program, but it has accounting function to monitor and display real time Disk I/O and processes. This tool is much useful for finding the exact process and high used disk read/writes of the processes.
+
+
+
+### Iostat – Input/Output Statistics
+
+IoStat is simple tool that will collect and show system input and output storage device statistics. This tool is often used to trace storage device performance issues including devices, local disks, remote disks such as NFS.
+# iostat 
+
+
+#### Lsof – List Open Files
+
+Lsof used to display list of all the open files and the processes. The open files included are disk files, network sockets, pipes, devices and processes. One of the main reason for using this command is when a disk cannot be unmounted and displays the error that files are being used or opened. With this commmand you can easily identify which files are in use. The most common format for this command is.
+# lsof 
+
+
+### Netstat – Network Statistics
+
+Netstat is a command line tool for monitoring incoming and outgoing network packets statistics as well as interface statistics. It is very useful tool for every system administrator to monitor network performance and troubleshoot network related problems
+Active Internet connections (w/o servers)
+
+
+### free  :  shows memory statistics for both main memory and swap.
+free -m -s 5   #####Refresh every 5 seconds in MB
+
+
+### Monit
+ is a free open source and web based process supervision utility that automatically monitors and managers system processes, programs, files, directories, permissions, checksums and filesystems.
+
+It monitors services like Apache, MySQL, Mail, FTP, ProFTP, Nginx, SSH and so on. The system status can be viewed from the command line or using it own web interface.
+
+
+

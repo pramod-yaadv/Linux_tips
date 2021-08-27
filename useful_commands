@@ -1,0 +1,58 @@
+######################### Montiroing Script #################
+ps aux --sort -rss
+ps aux | sort -rn -k 5,6
+/proc/meminfo
+free
+top
+
+##########################################################
+# To get the number of threads for a given pid:
+ps -o nlwp <pid>
+
+# To the get the sum of all threads running in the system:
+ps -eo nlwp | tail -n +2 | awk '{ num_threads += $1 } END { print num_threads }'
+
+##### Rename Multiple Files Name ###
+for f in *.JPG; do mv "$f" "$(echo "$f" | sed s/JPG/jpg/)"; done
+
+
+#### Delete History #########
+history | tail -n 50
+for h in $(seq 1002 1002 | tac); do history -d $h; done; history -d $(history | tail -1 | awk '{print $1}')
+
+tar --remove-files  -zcvf integra.2018-0.log.tar.gz integra.2018-0*
+
+sudo find . -iname ".svn" -print0 | xargs -0 rm -r
+
+awk -F',' 'NR > 1 {$5 = 0}1' OFS=',' ${input} > ${output}
+:%s/Search-Word/Replace-Word/g
+
+
+# Unix Command Dir Size & Space Disk Utilization / Free space
+du -ch --max-depth=1 integra/
+
+
+
+sed -e '3,$s@<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>@@g' -e '3,$s@<ErrorMessage>@@g' -e '3,$s@<\/ErrorMessage>@@g' -e '$a </ErrorMessage>' -e '/^\s*$/d' dummy.xml   > tmp1s
+
+OLD:
+{"properties":{"UNIX_COMMAND":"sed -e '2,$s/<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>//g' ${input} > ${output}" }}
+
+{"properties":{"UNIX_COMMAND":"sed -e '3,$s/<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>//g' -e '3,$s/<ErrorMessage>//g' -e '3,$s/<\/ErrorMessage>//g' -e '$a <\ErrorMessage>' ${input} > ${output}" }}
+
+sed -e '3,$s/<?xml version="1.0" encoding="UTF-8" standalone="yes"?>//g' -e '3,$s/<ErrorMessage>//g' -e '3,$s/</ErrorMessage>//g'  -e '$a </ErrorMessage>' ${input} > ${output}
+
+sed -e '3,$s/<?xml version="1.0" encoding="UTF-8" standalone="yes"?>//g' -e '3,$s/<ErrorMessage>//g' -e '3,$s/</ErrorMessage>//g'  -e '$a </ErrorMessage>' /tulintegra/integraAppData/data/1/SP_QA/ORDERSTATUSUPDATEIN/100213/2017/11/14/335349/sendorderstatussp/payload_335349_RESPONSE > /tulintegra/integraAppData/data/1/SP_QA/ORDERSTATUSUPDATEIN/100213/2017/11/14/335349/databugresolver/payload_335349_RESPONSE_sorted.
+
+sed -e '3,$s@<?xml version="1.0" encoding="UTF-8" standalone="yes"?>@@g' -e '3,$s@<ErrorMessage>@@g' -e '3,$s@</ErrorMessage>@@g'  -e '$a </ErrorMessage>' -e '/^\s*$/d' /tulintegra/integraAppData/data/1/SP_QA/ORDERSTATUSUPDATEIN/100213/2017/11/14/335349/sendorderstatussp/payload_335349_RESPONSE > /tulintegra/integraAppData/data/1/SP_QA/ORDERSTATUSUPDATEIN/100213/2017/11/14/335349/databugresolver/payload_335349_RESPONSE_sorted.
+
+{"properties":{"UNIX_COMMAND":"sed -e '3,$s/<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>//g' -e '3,$s/<ErrorMessage>//g' -e '3,$s/<\/ErrorMessage>//g' -e '\$a\<\/ErrorMessage>' ${input} > ${output}" }}
+
+
+sed -e '3,$s/<?xml version="1.0" encoding="UTF-8" standalone="yes"?>//g' -e '3,$s/<ErrorMessage>//g' -e '3,$s/<\/ErrorMessage>//g' -e "\$a\<\/ErrorMessage>" dummy.xml   > tmp.txt
+
+sed -e '2,$s/<?xml version="1.0" encoding="UTF-8" standalone="yes"?>//g' ${input}
+
+
+
+

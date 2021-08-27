@@ -1,0 +1,70 @@
+#1: service network restart
+Whatever change you made in network configuration files will not take place until you restart the network services. To implement change this command is used.
+
+#2: ping domain_name/IP
+Ping command is used to check the physical connectivity.	
+
+#3: arp
+Address Resolution Protocol associates the hardware address of a network adapter with an IP address. The arp command (in the /sbin directory) displays a table of hardware and IP addresses on the local computer. With arp, you can detect problems such as duplicate addresses on the network, or you can manually add arp entries as required.
+
+#4: netstat
+Provides real-time information on the status of your network connections, as well as network statistics and the routing table. The netstat command has several options you can use to bring up different sorts of information about your network.
+
+#5: ifconfig
+Command will display the configuration of all active Ethernet card.
+
+#6: nslookup
+for querying the Domain Name System (DNS) to obtain domain name or IP address mapping or for any other specific DNS record.
+
+
+sudo netstat -ntlp
+
+Client Socket[IP + PORT] & Server Socket [PORT]
+# Datagram sockets - connectionless sockets [UDP]
+# Stream sockets - connection-oriented sockets[TCP]
+# Raw sockets (or Raw IP sockets), typically available in routers and other network equipment. Here the transport layer is bypassed, and the packet headers are made accessible to the application.
+
+
+
+
+1: Find available WiFi adapters
+iw dev
+
+2:Check device status
+ip link show wlan0
+
+3: Bring up the WiFi interface
+ip link set wlan0 up
+
+4: Check the connection status
+iw wlan0 link
+
+5: Scan to find WiFi Network
+iw wlan0 scan
+
+8: Get an IP using dhclient
+dhclient wlan0
+ip addr show wlan0
+ip route show 
+
+9: Get Connected Network
+iwgetid
+
+
+root@kali:~# iw dev
+root@kali:~# ip link set wlan0 up
+root@kali:~# iw wlan0 scan
+root@kali:~# wpa_passphrase blackMOREOps >> /etc/wpa_supplicant.conf
+root@kali:~# wpa_supplicant -i wlan0 -c /etc/wpa_supplicant.conf
+root@kali:~# iw wlan0 link
+root@kali:~# dhclient wlan0
+root@kali:~# ping 8.8.8.8
+(Where wlan0 is wifi adapter and blackMOREOps is SSID)
+(Add Routing manually)
+root@kali:~# ip route add default via 10.0.0.138 dev wlan0
+
+# Find the complete Route 
+tracepath google.com
+HOP represents a network device between the computer on which you're running the tracert/tracepath command and your router.
+
+tracepath google.com

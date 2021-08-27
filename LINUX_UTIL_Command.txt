@@ -1,0 +1,244 @@
+
+################################### Users, Groups and Permissions in LinuX ##############################################
+
+#Create user 
+sudo adduser user_name
+
+#Delete User
+sudo userdel vm
+
+# Change User password 
+sudo passwd user_name
+
+# Create Group
+sudo groupadd group_name
+
+# Delete Group 
+sudo groupdel group_name
+
+#Add user to group
+sudo adduser user_name group_name
+
+#Delete user from group
+sudo deluser user_name group_name
+
+# Manage Users with /etc/passwd file
+sudo vim /etc/passwd
+
+# Manage User_Group with /etc/group file
+sudo vim /etc/group
+
+Read : 4
+Write: 2
+Execute: 1
+
+777 => User-Group-AnyUser
+
+# Change Permission of File or Folder
+sudo chmod 644 [-R] file/folder_location
+-R => Recursive Permission to all files inside Directory 
+
+# Change User OwnerShip of File or Folder
+sudo chown [-R] user_name file/folder_location
+
+# Change Group OwnerShip of File or Folder
+sudo chgrp [-R] group_name file/folder_location
+
+#####################################################################################################################
+
+#To Kill File Descriptor
+sudo netstat --extend -ntop|grep 1521 
+tcp        0      0 192.168.57.63:44723         192.168.57.50:1521          ESTABLISHED 0          4444583    26937/java   
+
+sudo cat /proc/26937/fd/4444583
+sudo ls -latr /proc/26937/fd|grep 4444583
+
+sudo gdb -p 26937
+call close(390)
+
+
+find . -name 'lock' -exec rm -v {} \;
+
+################START JBOSS SERVER ##################################
+nohup sh standalone.sh -c standalone-ha.xml -Djboss.node.name=spjbmA73241 -u 230.0.0.4 -b 10.10.73.241 > /dev/null 2>&1 &
+########################################################### File Find Command####################################################
+#To find all the files
+find . -type f
+
+# To find and replace in all the files & subdir
+find . -type f -exec sed -i 's/foo/bar/g' {} +
+
+find . -type f -exec sed -i 's/href=\"\/basket/href=\"\/enterprise/g' {} +
+
+
+#To find all the Dir
+find . -type d
+
+#To find all the files ending with .c 
+find . -name "*.c"
+
+#To search for all the .c files only in the current directory
+find . -maxdepth 1 -name "*.c"
+
+#To find all the .c and .h files
+find . -name "*.[ch]"
+
+#To find all the .cpp and .h files
+find .  \( -name *.cpp -o -name *.h \)
+
+#To find all the files whose names begin with 'f'
+find . -name "f*"
+
+#To find all the files except the .c files	
+find . ! -name "*.c"
+
+#To find all the .c files which contain the word 'stdio'
+find . -name "*.c" -exec grep -l stdio '{}' \;
+
+#To find all the .c files which does not contain the word 'stdio'
+for i in `find . -name "*.c"`
+ do 
+   grep -q stdio $i || echo $i
+ done
+
+####################################################################################################################################
+
+curl -X POST -d @/tmp/notify.json https://android.googleapis.com/gcm/send --header "Content-Type:application/json" --header "Authorization key=AIzaSyCsuN5odj6cnMrSGmRPVMksw_wJBODfeqg"
+
+########################################## OPENVPN  #######################################################
+sudo openvpn --config client.ovpn
+############################################## Linux Crontab Format ##########################################################
+MIN HOUR DOM MON DOW CMD
+
+Field 	Description 	Allowed Value
+MIN 	Minute field 	0 to 59
+HOUR 	Hour field 	0 to 23
+DOM 	Day of Month 	1-31
+MON 	Month field 	1-12
+DOW 	Day Of Week 	0-6
+CMD 	Command 	Any command to be executed.
+
+
+################################################################################################################################
+grep 'PERF: solr.search()'  /etailopt/logs/spjbmA75193/server.log.2016-05-2[0-9] |awk '{if($8>1000) print $0}'
+
+##################################### To search with few charcters before and after ############################################
+cat file.xml | grep -o -P '.{0,20}123776190049692677.{0,2000}'
+
+#############################################Deployment Automation:##############################################################
+#1: To deploy War
+cd /etailopt/wars/tisl2/ && rm -rf tisl.war.tar.gz && cp -i /tmp/tisl.war.tar.gz tisl.war.tar.gz && rm -rf /tmp/tisl.war && cp -r tisl.war /tmp/ && rm -rf tisl.war  && tar -xvf tisl.war.tar.gz && cp -r /tmp/tisl.war/WEB-INF/classes/*.properties tisl.war/WEB-INF/classes/ && rm -rf tisl.war.tar.gz && touch tisl.war.dodeploy
+
+
+#2: To deploy Media
+cd /tulincu/www/ && rm -rf media.war.tar.gz && cp -r /tmp/media.war.tar.gz media.war.tar.gz && rm -rf /tmp/media && cp -r media /tmp/ && rm -rf media && tar -xvf media.war.tar.gz && mv media.war media && rm -rf media.war.tar.gz
+###############Deployment Automation:########################################################################################################
+
+
+######ST R2 Wars Location#####################################################################################################################
+cd /etailopt/wars/tisl2/ && rm -rf tisl.war.tar.gz && cp -i /tmp/tisl.war.tar.gz tisl.war.tar.gz && rm -rf /tmp/tisl.war && cp -r tisl.war /tmp/ && rm -rf tisl.war  && tar -xvf tisl.war.tar.gz && cp -r /tmp/tisl.war/WEB-INF/classes/*.properties tisl.war/WEB-INF/classes/ && rm -rf tisl.war.tar.gz && touch tisl.war.dodeploy
+
+
+cd /tulincu/www/ && rm -rf media.war.tar.gz && cp -r /tmp/media.war.tar.gz media.war.tar.gz && rm -rf /tmp/media && cp -r media /tmp/ && rm -rf media && tar -xvf media.war.tar.gz && mv media.war media && rm -rf media.war.tar.gz
+##############################################################################################################################################
+
+set pagesize 30000
+set linesize 144
+jdbc:oracle:thin:@10.10.75.201:1621:TMPRDSP2
+
+###WIFI DRIVER INstallation ubuntu
+###TO see Hardware interface
+sudo lshw -C network
+sudo lshw -C multimedia
+wpconfig    #To check wifi enablement
+
+lspci -vvnn | grep 14e4        #Identify your Brodcom chipset family:
+
+####Install STA drivers
+sudo apt-get update
+sudo apt-get install bcmwl-kernel-source
+
+######effective without reboot run the below commands
+sudo modprobe -r b43 ssb wl
+sudo modprobe wl
+
+sudo apt-get update;sudo apt-get dist-upgrade; sudo apt-get install pavucontrol linux-sound-base alsa-base alsa-utils lightdm ubuntu-desktop linux-image-`uname -r` libasound2; sudo apt-get -y --reinstall install linux-sound-base alsa-base alsa-utils lightdm ubuntu-desktop linux-image-`uname -r` libasound2; killall pulseaudio; rm -r ~/.pulse*; ubuntu-support-status; sudo usermod -aG `cat /etc/group | grep -e '^pulse:' -e '^audio:' -e '^pulse-access:' -e '^pulse-rt:' -e '^video:' | awk -F: '{print $1}' | tr '\n' ',' | sed 's:,$::g'` `whoami`
+
+
+1:: To search keyword into file and also show no of lines after and before match found 
+grep -B 3 -A 2 100059BE163WA59XAMINDFAS server.log
+
+2:: 
+lsof -p 
+
+3:: 
+ps -aefL | grep java | more
+
+4::
+jstack <PID>
+
+5::
+pstack
+
+6::
+/usr/java/jdk/bin/jmap 4477
+
+7:: To send file data into body of POST request
+
+
+8:: To copy file data into clipboard
+
+9:: Display timestamp in history of commands
+export HISTTIMEFORMAT='%F %T '
+history | more
+
+10:: Clear All the previous history
+history -c
+
+11:: Create SSH Key (Public & Private)
+a: ssh-keygen -t rsa -b 2048 
+	OR 
+ssh-keygen -t rsa
+
+then Enter & Enter 
+
+b: ssh-copy-id user@10.10.73.73 
+	OR
+cat ~/.ssh/id_rsa.pub | ssh user@123.45.56.78 "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"
+
+# known_hosts file - Present at Client Side & Stores the Server's public key 
+# authorized_keys file - Present at server side & Store the Client's public key
+
+
+12: Count of keyword occurances in file 
+grep -o 'saleInvoice' file | wc -l
+
+
+13: Replace Word with some other words in file using sed(super editor)/tr
+sed -i 's/<\/product>/<\/product>\n/g' 95121_I_SELLER_PRODUCT_SERVICE_IN_20151218_092230_REQUEST.xml
+sed -e 's/<\/product>\n/<\/product>/g' 95121_I_SELLER_PRODUCT_SERVICE_IN_20151218_092230_REQUEST.xml > test.xml.tmp && mv test.xml.tmp test.xml
+
+tr '\n' ' ' < input_filename
+
+sed -i 's/<\/product>/<\/product>\n/g' 95121_I_SELLER_PRODUCT_SERVICE_IN_20151218_092230_REQUEST.xml
+
+13: Correct CSV File 
+sed -i 's/,/","/g' */*
+sed -i ':a;N;$!ba;s/\r\n/"\n"/g' */*
+
+sed -i ':a;N;$!ba;s/\n/"\n"/g' */*
+
+13: Split Files into smaller split of fixed size
+split -b 2m -d -a 3 server.log log.
+
+14: Give Location of Files
+Get-ChildItem -recurse | Select-String -pattern "100058190015" | group path | select name
+
+15: Export or assign value to Global variable 
+ export VAR=value
+ export -p    //To View all exported variable
+
+
+16: Repalce Word
+find ./ -type f -readable -writable -exec sed -i "s/\/basket\//\/nbasket\//g" {} \;
+
